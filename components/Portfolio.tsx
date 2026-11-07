@@ -8,9 +8,9 @@ import dynamic from 'next/dynamic';
 
 import Image from 'next/image';
 
-import { ArrowDown, ArrowUp, ArrowUpRight, BriefcaseBusiness, Phone, Check, ChevronRight, Copy, Download, Heart, Mail, MapPin, MessageCircle, Moon, Pause, Play, Plus, Send, Sparkles, Sun, UserRound, X } from 'lucide-react';
+import { ArrowDown, ArrowUp, ArrowUpRight, BriefcaseBusiness, Phone, Check, ChevronRight, Copy, Heart, Mail, MapPin, MessageCircle, Moon, Pause, Play, Plus, Send, Sparkles, Sun, UserRound, X } from 'lucide-react';
 
-import { profile, projects, experiences, replies } from '../lib/content';
+import { profile, projects, projectGalleries, experiences, replies } from '../lib/content';
 
 
 
@@ -100,9 +100,9 @@ export default function Portfolio() {
 
     <header className="topbar shell">
 
-      <a href="#work" className="messages-back" aria-label="Lihat empat karya"><ArrowDown size={25}/><span>4</span></a>
+      <a href="#work" className="messages-back" aria-label={`Lihat ${projects.length} karya`}><ArrowDown size={25}/><span>{projects.length}</span></a>
 
-      <a className="ios-contact-header" href="#about"><span className="ios-contact-avatar"><Image src="/portfolio/portrait.webp" alt="" width={48} height={72}/></span><strong>Sherindiva <ChevronRight size={12}/></strong></a>
+      <a className="ios-contact-header" href="#about"><span className="ios-contact-avatar"><Image src="/portfolio/profile-photo.jpeg" alt="" width={48} height={72}/></span><strong>Sherindiva <ChevronRight size={12}/></strong></a>
 
       <div className="top-actions"><button ref={callTrigger} className="icon-button" onClick={() => contactDialog.current?.showModal()} aria-label="Buka kartu kontak" aria-haspopup="dialog"><Phone size={21}/></button><button className="icon-button" onClick={toggleTheme} aria-label={dark ? 'Aktifkan tema terang' : 'Aktifkan tema gelap'} aria-pressed={dark}>{dark ? <Sun size={21}/> : <Moon size={21}/>}</button></div>
 
@@ -128,7 +128,7 @@ export default function Portfolio() {
 
           <h1 className="entrance">Halo, aku Sherindiva.</h1>
 
-          <p className="hero-description entrance">Fokus di Front-end Development & UI/UX Design.<br className="desktop-break"/> Mahasiswa software engineering di IPB yang suka merancang dan membangun antarmuka.</p>
+          <p className="hero-description entrance">Aku mahasiswa software engineering di IPB.<br className="desktop-break"/> Sekarang lagi mendalami front-end dan UI/UX, lewat website yang aku rancang dan bangun sendiri.</p>
 
           <div className="hero-actions entrance"><a className="button primary" href="#work">Lihat yang aku kerjakan <ArrowUpRight size={18}/></a><a className="button secondary" href="#contact">Sapa aku <MessageCircle size={17}/></a></div>
 
@@ -166,7 +166,7 @@ export default function Portfolio() {
 
     <section className="conversation-section shell" aria-label="Kenalan lewat pesan">
 
-      <div className="conversation-copy reveal"><span className="eyebrow blue">KENALAN DULU, YUK</span><h2>Mau tahu<br/><span className="soft-word">apa tentang aku?</span></h2><p>Kenalan lebih dekat, lihat hal yang aku kerjakan,<br/>atau mulai percakapan baru. Pick a message.</p><div className="conversation-typing"><span/><span/><span/></div></div>
+      <div className="conversation-copy reveal"><span className="eyebrow blue">KENALAN DULU, YUK</span><h2>Mau tahu<br/><span className="soft-word">apa tentang aku?</span></h2><p>Mau kenalan dulu atau langsung lihat karyaku?<br/>Pilih pesan di bawah, ya.</p><div className="conversation-typing"><span/><span/><span/></div></div>
 
         <div className="chat-stage entrance">
 
@@ -176,7 +176,7 @@ export default function Portfolio() {
 
             <div className="chat-top"><span>Messages</span><span>iMessage</span><MessageCircle size={15}/></div>
 
-            <div className="chat-profile"><span className="avatar"><Image src="/portfolio/portrait.webp" alt="" width={70} height={90} priority/></span><div><strong>Sherindiva <ChevronRight size={13}/></strong><span><i className="status-dot"/> Let’s create something meaningful</span></div><a href="#about" className="profile-more" aria-label="Tentang Sherindiva"><UserRound size={19}/></a></div>
+            <div className="chat-profile"><span className="avatar"><Image src="/portfolio/profile-photo.jpeg" alt="" width={70} height={90} priority/></span><div><strong>Sherindiva <ChevronRight size={13}/></strong><span><i className="status-dot"/> Kenalan dulu, yuk.</span></div><a href="#about" className="profile-more" aria-label="Tentang Sherindiva"><UserRound size={19}/></a></div>
 
             <div className="chat-body" ref={conversation}>
 
@@ -184,9 +184,9 @@ export default function Portfolio() {
 
               <div className="bubble incoming bubble-intro">Halo! Aku Sherindiva <span aria-label="melambaikan tangan">👋</span></div>
 
-              <div className="bubble incoming">Aku suka bikin sistem yang membantu,<br/>dan memastikan proyeknya berjalan.</div>
+              <div className="bubble incoming">Aku lagi fokus di front-end dan UI/UX.<br/>Beberapa website yang aku kerjakan ada di sini.</div>
 
-              <div className="photo-message"><div className="portrait-backdrop"><span className="portrait-label">a little bit of<br/><strong>everything.</strong></span><Image src="/portfolio/portrait.webp" alt="Sherindiva tersenyum dan melambaikan tangan" width={260} height={390} priority/><span className="photo-spark" aria-hidden="true">✳</span></div></div>
+              <div className="photo-message"><div className="portrait-backdrop chat-photo-attachment"><Image src="/portfolio/profile-photo.jpeg" alt="Foto Sherindiva" width={1066} height={1600}/></div></div>
 
               {!reply && <><div className="bubble outgoing">Boleh lihat karya kamu? <Sparkles size={15}/></div><span className="delivered">Delivered</span></>}
 
@@ -206,7 +206,7 @@ export default function Portfolio() {
 
 
 
-    <div className="stats-strip shell reveal"><div><strong>20<span>+</span></strong><span>Projects & programs</span></div><div><strong>25<span>+</span></strong><span>Team members led</span></div><div><strong>150<span>M+</span></strong><span>Rupiah budget managed</span></div><div className="stats-note"><Sparkles size={23}/><p>Different roles.<br/><strong>One drive to make an impact.</strong></p></div></div>
+    <div className="stats-strip shell reveal"><div><strong>20<span>+</span></strong><span>Projects & programs</span></div><div><strong>25<span>+</span></strong><span>Team members led</span></div><div><strong>150<span>M+</span></strong><span>Rupiah budget managed</span></div></div>
 
 
 
@@ -214,11 +214,11 @@ export default function Portfolio() {
 
       <div className="section-heading reveal"><div><span className="eyebrow blue">LAMPIRAN</span><h2>A few things<br/>I’ve put my <span className="soft-word">heart into.</span></h2></div><p>Proyek, program, dan hal-hal yang pernah aku kerjakan.</p></div>
 
-      <div className="work-toolbar"><div className="filter-group" aria-label="Filter karya">{['All', 'Technology', 'Strategy', 'Community'].map(category => <button key={category} aria-pressed={filter === category} className={filter === category ? 'selected' : ''} onClick={() => setFilter(category)}>{category}{category === 'All' && <span>04</span>}</button>)}</div><span className="attachment-count">{projects.filter(p => filter === 'All' || p.category === filter).length} attachments</span></div>
+      <div className="work-toolbar"><div className="filter-group" aria-label="Filter karya">{['All', 'Technology', 'Strategy', 'Community', 'Activities'].map(category => <button key={category} aria-pressed={filter === category} className={filter === category ? 'selected' : ''} onClick={() => setFilter(category)}>{category}{category === 'All' && <span>{String(projects.length).padStart(2, '0')}</span>}</button>)}</div><span className="attachment-count">{projects.filter(p => filter === 'All' || p.category === filter).length} attachments</span></div>
 
       <div className="project-grid">{projects.filter(p => filter === 'All' || p.category === filter).map((project, i) => <button className={`project-card ${project.id}`} key={project.id} onClick={e => { projectTrigger.current = e.currentTarget; setSelected(project); }} aria-label={`Buka studi kasus ${project.subtitle}`}>
 
-        <div className="project-art"><span className="project-category">{project.category}</span>{project.id === 'pos' || project.id === 'finance' ? <div className="screen-composition"><div className="desktop-screen"><div className="screen-bar"><i/><i/><i/><span>{project.id === 'pos' ? 'A smoother everyday.' : 'Everything, in balance.'}</span></div><Image src={project.image} alt={`Tampilan ${project.subtitle}, data dummy`} width={960} height={540}/></div><div className="mobile-screen"><Image src={`/portfolio/${project.id}-mobile.webp`} alt="Tampilan mobile" width={180} height={390}/></div></div> : <Image className="cover-art" src={project.image} alt={project.id === 'ruma' ? 'Sherindiva dalam kegiatan edukasi RUMA' : 'Proyeksi keuangan dalam pitch deck CoolGo'} width={960} height={540}/>}<span className="open-project"><ArrowUpRight size={21}/></span></div>
+        <div className="project-art"><span className="project-category">{project.category}</span>{['pos', 'finance', 'mapan', 'sayit', 'laras'].includes(project.id) ? <div className="screen-composition"><div className="desktop-screen"><div className="screen-bar"><i/><i/><i/><span>{project.id === 'pos' ? 'A smoother everyday.' : project.id === 'mapan' ? 'MAPAN · Ruang keuanganmu' : project.id === 'sayit' ? 'SayIt · Your World, Voiced.' : project.id === 'laras' ? 'Laras · Project workspace' : 'Everything, in balance.'}</span></div><Image src={project.image} alt={`Tampilan desktop ${project.subtitle}`} width={960} height={540}/></div><div className="mobile-screen"><Image src={project.id === 'laras' ? '/portfolio/laras-mobile.jpg' : ['mapan', 'sayit'].includes(project.id) ? `/portfolio/${project.id}-mobile.png` : `/portfolio/${project.id}-mobile.webp`} alt="Tampilan mobile" width={180} height={390}/></div></div> : <Image className="cover-art" src={project.image} alt={'imageAlt' in project ? project.imageAlt : project.id === 'ruma' ? 'Sherindiva dalam kegiatan edukasi RUMA' : project.id === 'coolgo' ? 'Proyeksi keuangan dalam pitch deck CoolGo' : `Screenshot desktop ${project.name}`}  width={960} height={540}/>}<span className="open-project"><ArrowUpRight size={21}/></span></div>
 
         <div className="project-info"><div><span className="project-subtitle">{project.subtitle}</span><h3>{project.name}</h3></div><span className="project-index">0{projects.indexOf(project) + 1}</span></div>
 
@@ -232,9 +232,15 @@ export default function Portfolio() {
 
     <section id="about" className="about-section shell">
 
-      <div className="about-photo reveal"><div className="about-photo-title">More than<br/>one <em>thing.</em></div><Image src="/portfolio/portrait.webp" alt="Sherindiva" width={500} height={750}/><span className="about-pin"><MapPin size={14}/> Bogor, Indonesia</span><span className="about-sticker">Curious by nature.<br/>Driven by purpose.</span></div>
+      <div className="about-photo qualifications-portrait reveal">
+        <span className="qualifications-kicker">DESIGN · DEVELOPMENT · PEOPLE</span>
+        <span className="qualifications-heading">MY<br/>TOOLKIT.</span>
+        <div className="qualification-labels"><span>Figma & UI/UX Design</span><span>Web Development</span><span>Google Apps Script</span><span>Project Management</span></div>
+        <Image src="/portfolio/formal-cutout.png" alt="Sherindiva, foto formal tanpa latar" width={800} height={1500}/>
+        <span className="qualification-caption">Sherindiva<br/><small>Software Engineering · IPB University</small></span>
+      </div>
 
-      <div className="about-copy reveal"><span className="eyebrow blue">KARTU KONTAK</span><h2>Dari rancangan<br/>ke <span className="soft-word">antarmuka.</span></h2><p>Aku Sherindiva, mahasiswa Teknologi Rekayasa Perangkat Lunak di IPB University. Aku ingin berfokus pada front-end development dan UI/UX design: memahami kebutuhan pengguna, merancang tampilan, dan mengubahnya menjadi pengalaman web yang nyaman digunakan.</p><p>Pengalaman mengelola proyek, menyusun alur sistem, mengevaluasi desain UI/UX, dan bekerja dengan berbagai tim menjadi bekalku dalam mengembangkan fokus ini. Pengalaman keuangan, organisasi, dan sosialku juga bisa kamu lihat seluruhnya di bawah.</p><div className="education-card"><span className="education-icon">IPB</span><div><strong>IPB University</strong><span>Applied Bachelor · Software Engineering Technology</span><small>2024 – Present <b>·</b> GPA 3.70 / 4.00</small></div></div><div className="skill-tags">{['Figma', 'UI/UX Design', 'Web Development', 'Business Process', 'Google Apps Script', 'Project Management'].map(skill => <span key={skill}>{skill}</span>)}</div></div>
+      <div className="about-copy reveal"><span className="eyebrow blue">KARTU KONTAK</span><h2>Kenalan sedikit,<br/><span className="soft-word">yuk.</span></h2><p>Aku Sherindiva, mahasiswa Teknologi Rekayasa Perangkat Lunak di IPB University. Sekarang aku sedang mendalami front-end development dan UI/UX design. Lewat proyek seperti MAPAN, aku belajar mengerjakan website dari awal, mulai dari menentukan fitur, menyusun tampilan, sampai membangunnya sendiri.</p><p>Sebelumnya, aku banyak terlibat dalam pengelolaan proyek, keuangan, dan kegiatan organisasi. Dari situ aku belajar mendengarkan kebutuhan orang lain, merapikan alur kerja, dan bekerja bareng tim. Pengalaman itu ikut membentuk caraku merancang website, terutama saat memikirkan bagaimana orang akan memakainya.</p><div className="education-card"><span className="education-icon">IPB</span><div><strong>IPB University</strong><span>Applied Bachelor · Software Engineering Technology</span><small>2024 – Present <b>·</b> GPA 3.70 / 4.00</small></div></div><div className="skill-tags">{['Figma', 'UI/UX Design', 'Web Development', 'Business Process', 'Google Apps Script', 'Project Management'].map(skill => <span key={skill}>{skill}</span>)}</div></div>
 
     </section>
 
@@ -242,16 +248,39 @@ export default function Portfolio() {
 
     <section id="experience" className="experience-section shell">
 
-      <div className="section-heading reveal"><div><span className="eyebrow blue">AKTIVITAS</span><h2>Semua peran,<br/><span className="soft-word">semua pengalaman.</span></h2></div><a className="text-link" href="/portfolio/sherindiva-portfolio.pdf" download>Full portfolio <Download size={16}/></a></div>
+      <div className="section-heading reveal"><div><span className="eyebrow blue">AKTIVITAS</span><h2>Pengalaman,<br/><span className="soft-word">dalam berbagai peran.</span></h2></div></div>
 
-      <div className="timeline">{experiences.map((exp, i) => <article className="timeline-item reveal" key={exp.title}><span className="timeline-date">{exp.date}</span><div className="timeline-marker"><span/></div><div className="timeline-content"><span>{exp.company}</span><h3>{exp.title}</h3><p>{exp.text}</p></div><span className="experience-number">{String(i+1).padStart(2, '0')}</span></article>)}</div>
-
-      <p className="experience-source-note">Pengalaman dirangkum dari portofolio. Untuk peran tanpa tanggal dalam dokumen, ditampilkan konteks kegiatannya.</p>
+      <ol className="timeline" aria-label="Pengalaman dari yang terbaru">
+        {experiences.map((experience, index) => (
+          <li className="timeline-item" key={experience.title}>
+            <span className="timeline-date">{experience.date}</span>
+            <div className="timeline-marker" aria-hidden="true"><span /></div>
+            <div className="timeline-content">
+              <span>{experience.company}</span>
+              <h3>{experience.title}</h3>
+              <p>{experience.text}</p>
+              {experience.evidence && (
+                <details className="timeline-evidence">
+                  <summary>Lihat dokumentasi</summary>
+                  <figure>
+                    <a href={experience.evidence.image} target="_blank" rel="noreferrer">
+                      <Image src={experience.evidence.image} alt={experience.evidence.caption} width={520} height={320} />
+                    </a>
+                    <figcaption>{experience.evidence.caption}</figcaption>
+                  </figure>
+                </details>
+              )}
+            </div>
+            <span className="experience-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+          </li>
+        ))}
+      </ol>
+      <div className="experience-project-note"><BriefcaseBusiness size={22}/><div><strong>Pengalaman memimpin proyek</strong><p>Peran Project Manager POS dan Project Lead RUMA bisa kamu telusuri lebih lengkap di bagian karya.</p><a href="#work">Lihat proyek & kontribusiku <ArrowUpRight size={15}/></a></div></div>
     </section>
 
 
 
-    <section id="contact" className="contact-section shell reveal"><div className="contact-label"><span className="status-dot"/> YOUR NEXT COLLABORATOR, ONE MESSAGE AWAY</div><div className="contact-bubble"><MessageCircle size={32} fill="currentColor"/></div><h2>Ada yang mau<br/><span>kita kerjakan bareng?</span></h2><p>Punya ide, peluang, atau sekadar ingin menyapa?<br/>I’d love to hear from you.</p><div className="contact-buttons"><a className="button primary" href={`mailto:${profile.email}`}>Say hello <ArrowUpRight size={18}/></a><button className="button secondary" onClick={copyEmail}>{copyStatus === 'Email tersalin!' ? <Check size={16}/> : <Copy size={16}/>} Copy email</button></div><div role="status" className="copy-status">{copyStatus || profile.email}</div><div className="social-links"><a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight size={13}/></a><a href={profile.instagram} target="_blank" rel="noreferrer">Instagram <ArrowUpRight size={13}/></a><a href="/portfolio/sherindiva-portfolio.pdf" target="_blank" rel="noreferrer">Portfolio PDF <ArrowUpRight size={13}/></a></div></section>
+    <section id="contact" className="contact-section shell reveal"><div className="contact-label"><span className="status-dot"/> YOUR NEXT COLLABORATOR, ONE MESSAGE AWAY</div><div className="contact-bubble"><MessageCircle size={32} fill="currentColor"/></div><h2>Ada yang mau<br/><span>kita kerjakan bareng?</span></h2><p>Punya ide, peluang, atau sekadar ingin menyapa?<br/>I’d love to hear from you.</p><div className="contact-buttons"><a className="button primary" href={`mailto:${profile.email}`}>Say hello <ArrowUpRight size={18}/></a><button className="button secondary" onClick={copyEmail}>{copyStatus === 'Email tersalin!' ? <Check size={16}/> : <Copy size={16}/>} Copy email</button></div><div role="status" className="copy-status">{copyStatus || profile.email}</div><div className="social-links"><a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight size={13}/></a><a href={profile.instagram} target="_blank" rel="noreferrer">Instagram <ArrowUpRight size={13}/></a></div></section>
 
     <footer className="shell"><a className="brand" href="#home">sherindiva<span className="brand-period">.</span></a><span>Sherindiva · Bogor, Indonesia</span><a className="text-link" href="#home">Back to hello <ArrowUp size={14}/></a></footer>
 
@@ -259,12 +288,12 @@ export default function Portfolio() {
 
     <dialog ref={contactDialog} className="contact-dialog" aria-labelledby="contact-card-title" onClick={e => { if(e.target === contactDialog.current) contactDialog.current.close(); }} onClose={() => callTrigger.current?.focus()}>
       <button className="contact-card-close icon-button" onClick={() => contactDialog.current?.close()} aria-label="Tutup kartu kontak"><X size={21}/></button>
-      <div className="contact-card-avatar"><Image src="/portfolio/portrait.webp" alt="Sherindiva" width={100} height={150}/></div>
+      <div className="contact-card-avatar"><Image src="/portfolio/profile-photo.jpeg" alt="Sherindiva" width={100} height={150}/></div>
       <h2 id="contact-card-title">Sherindiva</h2><p>Yuk, ngobrol atau kerja bareng.</p>
       <div className="contact-card-links"><a href={`mailto:${profile.email}`}><Mail size={22}/><span><small>Email</small><strong>{profile.email}</strong></span><ArrowUpRight size={18}/></a><a href={profile.instagram} target="_blank" rel="noreferrer"><MessageCircle size={22}/><span><small>Instagram</small><strong>@sherindiva</strong></span><ArrowUpRight size={18}/></a><a href={profile.linkedin} target="_blank" rel="noreferrer"><BriefcaseBusiness size={22}/><span><small>LinkedIn</small><strong>Sherindiva</strong></span><ArrowUpRight size={18}/></a></div>
       <button className="contact-motion-button" onClick={() => setPaused(!paused)}>{paused ? <Play size={16}/> : <Pause size={16}/>} {paused ? 'Lanjutkan animasi' : 'Jeda animasi'}</button>
     </dialog>
-    <dialog ref={dialog} className="project-dialog" onCancel={closeProject} onClose={() => { setSelected(null); projectTrigger.current?.focus(); }} onClick={e => { if(e.target === dialog.current) closeProject(); }} aria-labelledby="dialog-title"><button className="dialog-close icon-button" onClick={closeProject} aria-label="Tutup detail proyek"><X size={21}/></button>{selected && <><div className={`dialog-art ${selected.id}`}><Image src={selected.image} alt={selected.subtitle} width={960} height={540}/></div><div className="dialog-copy"><span className="eyebrow blue">{selected.role}</span><h2 id="dialog-title">{selected.name}</h2><p>{selected.description}</p><div className="project-metric"><strong>{selected.metric}</strong><span>{selected.metricLabel}</span></div><h3>My contribution</h3><ul>{selected.details.map(detail => <li key={detail}>{detail}</li>)}</ul><div className="skill-tags">{selected.tags.map(tag => <span key={tag}>{tag}</span>)}</div>{selected.note && <p className="confidential-note">{selected.note}</p>}</div></>}</dialog>
+    <dialog ref={dialog} className="project-dialog" onCancel={closeProject} onClose={() => { setSelected(null); projectTrigger.current?.focus(); }} onClick={e => { if(e.target === dialog.current) closeProject(); }} aria-labelledby="dialog-title"><button className="dialog-close icon-button" onClick={closeProject} aria-label="Tutup detail proyek"><X size={21}/></button>{selected && <><div className={`dialog-art ${selected.id}`}><Image src={selected.image} alt={selected.subtitle} width={960} height={540}/></div><div className="dialog-copy"><span className="eyebrow blue">{selected.role}</span><h2 id="dialog-title">{selected.name}</h2><p>{selected.description}</p>{selected.id === 'sayit' && <a className="button primary project-live-link" href="https://sayit-web-three.vercel.app/" target="_blank" rel="noreferrer">Buka landing page SayIt <ArrowUpRight size={17}/></a>}{selected.id === 'laras' && <a className="button primary project-live-link" href="https://laras-project-management.vercel.app/demo" target="_blank" rel="noreferrer">Buka demo Laras <ArrowUpRight size={17}/></a>}<a className="project-screenshot-link" href={selected.image} target="_blank" rel="noreferrer">Perbesar screenshot <ArrowUpRight size={16}/></a>{selected.metric && <div className="project-metric"><strong>{selected.metric}</strong><span>{selected.metricLabel}</span></div>}<h3>My contribution</h3><ul>{selected.details.map(detail => <li key={detail}>{detail}</li>)}</ul>{selected.tags.length > 0 && <><h3 className="project-stack-title">Tech stack</h3><div className="skill-tags">{selected.tags.map(tag => <span key={tag}>{tag}</span>)}</div></>}{projectGalleries[selected.id] && <div className="project-gallery"><h3>Desktop & mobile</h3><div className="project-gallery-grid">{projectGalleries[selected.id].map(media => <a className={media.portrait ? 'portrait' : 'landscape'} key={media.src} href={media.src} target="_blank" rel="noreferrer"><Image src={media.src} alt={media.label} width={media.portrait ? 739 : 1440} height={media.portrait ? 1600 : 900}/><span>{media.label} <ArrowUpRight size={14}/></span></a>)}</div></div>}{selected.note && <p className="confidential-note">{selected.note}</p>}</div></>}</dialog>
 
   </main>;
 
