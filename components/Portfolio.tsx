@@ -7,8 +7,9 @@ import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 
 import Image from 'next/image';
+import Toolkit from './Toolkit';
 
-import { ArrowDown, ArrowUp, ArrowUpRight, BriefcaseBusiness, Phone, Check, ChevronRight, Copy, Download, Heart, Mail, MapPin, MessageCircle, Moon, Pause, Play, Plus, Send, Sparkles, Sun, UserRound, X } from 'lucide-react';
+import { ArrowDown, ArrowUp, ArrowUpRight, BriefcaseBusiness, Phone, Check, ChevronRight, Copy, Download, Heart, Mail, MapPin, MessageCircle, Moon, Plus, Send, Sparkles, Sun, UserRound, X } from 'lucide-react';
 
 import { profile, projects, projectGalleries, projectLinks, experiences, replies } from '../lib/content';
 
@@ -26,7 +27,6 @@ export default function Portfolio() {
 
   const [dark, setDark] = useState(false);
 
-  const [paused, setPaused] = useState(false);
 
   const [liked, setLiked] = useState(false);
 
@@ -95,7 +95,7 @@ export default function Portfolio() {
 
 
 
-  return <main className={paused ? 'paused' : ''}>
+  return <main>
 
     <a className="skip-link" href="#work">Langsung ke karya</a>
 
@@ -119,7 +119,7 @@ export default function Portfolio() {
 
     <section className="hero" id="home">
 
-      <MessageScene paused={paused} burst={burst} />
+      <MessageScene burst={burst} />
 
       <div className="hero-inner shell">
 
@@ -237,18 +237,19 @@ export default function Portfolio() {
 
     <section id="about" className="about-section shell">
 
-      <div className="about-photo qualifications-portrait reveal">
+      <div className="about-photo qualifications-portrait">
         <span className="qualifications-kicker">DESIGN · DEVELOPMENT · PEOPLE</span>
-        <span className="qualifications-heading">MY<br />TOOLKIT.</span>
-        <div className="qualification-labels"><span>Figma & UI/UX Design</span><span>Web Development</span><span>Google Apps Script</span><span>Project Management</span></div>
         <Image src="/portfolio/formal-cutout.png" alt="Sherindiva, foto formal tanpa latar" width={800} height={1500} />
-        <span className="qualification-caption">Sherindiva<br /><small>Software Engineering · IPB University</small></span>
+        <div className="qualification-header">
+          <span className="qualification-caption">Sherindiva Hadijah Rahim<br /><small>Software Engineering · IPB University</small></span>
+          <a className="button secondary cv-download" href="/portfolio/sherindiva-hadijah-rahim-cv.pdf" download="Sherindiva Hadijah Rahim - CV.pdf">
+            <Download size={18} aria-hidden="true" /> Unduh CV
+          </a>
+        </div>
+        <Toolkit />
       </div>
 
-      <div className="about-copy reveal"><span className="eyebrow blue">KARTU KONTAK</span><h2>Kenalan sedikit,<br /><span className="soft-word">yuk.</span></h2><p>Aku Sherindiva, mahasiswa Teknologi Rekayasa Perangkat Lunak di IPB University. Sekarang aku sedang mendalami front-end development dan UI/UX design. Lewat proyek seperti MAPAN, aku belajar mengerjakan website dari awal, mulai dari menentukan fitur, menyusun tampilan, sampai membangunnya sendiri.</p><p>Sebelumnya, aku banyak terlibat dalam pengelolaan proyek, keuangan, dan kegiatan organisasi. Dari situ aku belajar mendengarkan kebutuhan orang lain, merapikan alur kerja, dan bekerja bareng tim. Pengalaman itu ikut membentuk caraku merancang website, terutama saat memikirkan bagaimana orang akan memakainya.</p><div className="education-card"><span className="education-icon">IPB</span><div><strong>IPB University</strong><span>Applied Bachelor · Software Engineering Technology</span><small>2024 – Present <b>·</b> GPA 3.70 / 4.00</small></div></div><div className="skill-tags">{['Figma', 'UI/UX Design', 'Web Development', 'Business Process', 'Google Apps Script', 'Project Management'].map(skill => <span key={skill}>{skill}</span>)}</div>
-        <a className="button secondary cv-download" href="/portfolio/sherindiva-hadijah-rahim-cv.pdf" download="Sherindiva Hadijah Rahim - CV.pdf">
-          <Download size={18} aria-hidden="true" /> Unduh CV
-        </a>
+      <div className="about-copy reveal"><h2>Kenalan sedikit,<br /><span className="soft-word">yuk.</span></h2><p>Aku Sherindiva Hadijah Rahim, mahasiswa Teknologi Rekayasa Perangkat Lunak di IPB University. Sekarang aku sedang mendalami front-end development dan UI/UX design. Lewat proyek seperti MAPAN, aku belajar mengerjakan website dari awal, mulai dari menentukan fitur, menyusun tampilan, sampai membangunnya sendiri.</p><p>Sebelumnya, aku banyak terlibat dalam pengelolaan proyek, keuangan, dan kegiatan organisasi. Dari situ aku belajar mendengarkan kebutuhan orang lain, merapikan alur kerja, dan bekerja bareng tim. Pengalaman itu ikut membentuk caraku merancang website, terutama saat memikirkan bagaimana orang akan memakainya.</p><div className="education-card"><span className="education-icon">IPB</span><div><strong>IPB University</strong><span>Applied Bachelor · Software Engineering Technology</span><small>2024 – Present <b>·</b> GPA 3.70 / 4.00</small></div></div><div className="skill-tags">{['Figma', 'UI/UX Design', 'Web Development', 'Business Process', 'Google Apps Script', 'Project Management'].map(skill => <span key={skill}>{skill}</span>)}</div>
       </div>
 
     </section>
@@ -299,7 +300,6 @@ export default function Portfolio() {
       <div className="contact-card-avatar"><Image src="/portfolio/profile-photo.jpeg" alt="Sherindiva" width={100} height={150} /></div>
       <h2 id="contact-card-title">Sherindiva</h2><p>Yuk, ngobrol atau kerja bareng.</p>
       <div className="contact-card-links"><a href={`mailto:${profile.email}`}><Mail size={22} /><span><small>Email</small><strong>{profile.email}</strong></span><ArrowUpRight size={18} /></a><a href={profile.instagram} target="_blank" rel="noreferrer"><MessageCircle size={22} /><span><small>Instagram</small><strong>@sherindiva</strong></span><ArrowUpRight size={18} /></a><a href={profile.linkedin} target="_blank" rel="noreferrer"><BriefcaseBusiness size={22} /><span><small>LinkedIn</small><strong>Sherindiva</strong></span><ArrowUpRight size={18} /></a></div>
-      <button className="contact-motion-button" onClick={() => setPaused(!paused)}>{paused ? <Play size={16} /> : <Pause size={16} />} {paused ? 'Lanjutkan animasi' : 'Jeda animasi'}</button>
     </dialog>
     <dialog ref={dialog} className="project-dialog" onCancel={closeProject} onClose={() => { setSelected(null); projectTrigger.current?.focus(); }} onClick={e => { if (e.target === dialog.current) closeProject(); }} aria-labelledby="dialog-title"><button className="dialog-close icon-button" onClick={closeProject} aria-label="Tutup detail proyek"><X size={21} /></button>{selected && <><div className={`dialog-art ${selected.id}`}><Image src={selected.image} alt={selected.subtitle} width={960} height={540} /></div><div className="dialog-copy"><span className="eyebrow blue">{selected.role}</span><h2 id="dialog-title">{selected.name}</h2><p>{selected.description}</p>{projectLink && <a className="button primary project-live-link" href={projectLink.href} target="_blank" rel="noreferrer">{projectLink.label} <ArrowUpRight size={17} aria-hidden="true" /></a>}<a className="project-screenshot-link" href={selected.image} target="_blank" rel="noreferrer">Perbesar screenshot <ArrowUpRight size={16} /></a>{selected.metric && <div className="project-metric"><strong>{selected.metric}</strong><span>{selected.metricLabel}</span></div>}<h3>My contribution</h3><ul>{selected.details.map(detail => <li key={detail}>{detail}</li>)}</ul>{selected.tags.length > 0 && <><h3 className="project-stack-title">Tech stack</h3><div className="skill-tags">{selected.tags.map(tag => <span key={tag}>{tag}</span>)}</div></>}{projectGalleries[selected.id] && <div className="project-gallery"><h3>Desktop & mobile</h3><div className="project-gallery-grid">{projectGalleries[selected.id].map(media => <a className={media.portrait ? 'portrait' : 'landscape'} key={media.src} href={media.src} target="_blank" rel="noreferrer"><Image src={media.src} alt={media.label} width={media.portrait ? 739 : 1440} height={media.portrait ? 1600 : 900} /><span>{media.label} <ArrowUpRight size={14} /></span></a>)}</div></div>}{selected.note && <p className="confidential-note">{selected.note}</p>}</div></>}</dialog>
 

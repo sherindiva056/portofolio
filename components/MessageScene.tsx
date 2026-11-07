@@ -3,10 +3,10 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-export default function MessageScene({ paused, burst }: { paused: boolean; burst: number }) {
+export default function MessageScene({ burst }: { burst: number }) {
   const host = useRef<HTMLDivElement>(null);
-  const settings = useRef({ paused, burst });
-  useEffect(() => { settings.current = { paused, burst }; }, [paused, burst]);
+  const burstRef = useRef(burst);
+  useEffect(() => { burstRef.current = burst; }, [burst]);
   useEffect(() => {
     const el = host.current!;
     let renderer: THREE.WebGLRenderer;
@@ -29,7 +29,7 @@ export default function MessageScene({ paused, burst }: { paused: boolean; burst
     const items = [[-7.5, 2.6, -1, 0.48], [7.6, 2.1, -2, 0.45], [-7.4, -2.5, 0, 0.3], [7.4, -2.6, -1, 0.5]].map(([x,y,z,s], i) => {
       const mesh = new THREE.Mesh(geometry, materials[i % 3]); mesh.position.set(x,y,z); mesh.scale.setScalar(s); mesh.rotation.set(0.15, i % 2 ? -0.4 : 0.4, i % 2 ? 0.18 : -0.2); scene.add(mesh); return { mesh, x, y, initialY: y, scale: s };
     });
-    let frame = 0, time = 0, previous = 0, px = 0, py = 0, visible = true, pulse = 0, lastBurst = settings.current.burst;
+    let frame = 0, time = 0, previous = 0, px = 0, py = 0, visible = true, pulse = 0, lastBurst = burstRef.current;
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
     const pointer = (e: PointerEvent) => { if(e.pointerType === 'mouse') { px = (e.clientX / innerWidth - 0.5) * 0.5; py = (e.clientY / innerHeight - 0.5) * 0.3; } };
     window.addEventListener('pointermove', pointer, { passive: true });
@@ -48,9 +48,9 @@ export default function MessageScene({ paused, burst }: { paused: boolean; burst
       frame = requestAnimationFrame(render);
       const dt = Math.min((now - previous) / 1000, 0.05); previous = now;
       if(!visible || document.hidden) return;
-      const motion = !settings.current.paused && !reduced.matches;
+      const motion = !reduced.matches;
       if(motion) time += dt;
-      if(lastBurst !== settings.current.burst) { pulse = motion ? 1 : 0; lastBurst = settings.current.burst; }
+      if(lastBurst !== burstRef.current) { pulse = motion ? 1 : 0; lastBurst = burstRef.current; }
       pulse = Math.max(0, pulse - dt * 1.2);
       items.forEach(({ mesh, x, y }, i) => {
         const targetX = x + (motion ? px + Math.sin(time * 0.55 + i) * 0.12 : 0);
