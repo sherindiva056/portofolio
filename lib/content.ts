@@ -54,7 +54,7 @@ export const projectLinks: Record<string, { href: string; label: string } | unde
   laras: { href: 'https://laras-project-management.vercel.app/demo', label: 'Buka demo Laras' },
 };
 
-export const projectGalleries: Record<string, { src: string; label: string; portrait?: boolean }[]> = {
+export const projectGalleries: Record<string, { src: string; label: string; portrait?: boolean; phoneCover?: boolean }[]> = {
   pos: [
     { src: '/portfolio/pos.webp', label: 'Sistem kasir · desktop' },
     { src: '/portfolio/pos-mobile.webp', label: 'Sistem kasir · mobile', portrait: true },
@@ -71,7 +71,7 @@ export const projectGalleries: Record<string, { src: string; label: string; port
   sayit: [
     { src: '/portfolio/sayit-desktop.png', label: 'Landing page desktop' },
     { src: '/portfolio/sayit-camera.png', label: 'Kamera untuk mengenali nominal uang', portrait: true },
-    { src: '/portfolio/sayit-mobile.png', label: 'Hasil pengenalan uang pada tampilan mobile', portrait: true },
+    { src: '/portfolio/sayit-mobile.png', label: 'Hasil pengenalan uang pada tampilan mobile', portrait: true, phoneCover: true },
   ],
   mapan: [
     { src: '/portfolio/mapan-desktop.jpg', label: 'Landing page desktop' },

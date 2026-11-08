@@ -217,17 +217,44 @@ export default function Portfolio() {
 
       <div className="work-toolbar"><div className="filter-group" aria-label="Filter karya">{['All', 'Technology', 'Strategy', 'Community', 'Activities'].map(category => <button key={category} aria-pressed={filter === category} className={filter === category ? 'selected' : ''} onClick={() => setFilter(category)}>{category}{category === 'All' && <span>{String(projects.length).padStart(2, '0')}</span>}</button>)}</div><span className="attachment-count">{projects.filter(p => filter === 'All' || p.category === filter).length} attachments</span></div>
 
-      <div className="project-grid">{projects.filter(p => filter === 'All' || p.category === filter).map(project => <button className={`project-card ${project.id}`} key={project.id} onClick={e => { projectTrigger.current = e.currentTarget; setSelected(project); }} aria-label={`Buka detail ${project.name}`}>
+      <div className="project-grid">
+        {projects.filter(project => filter === 'All' || project.category === filter).map(project => {
+          const gallery = projectGalleries[project.id];
+          const phone = gallery?.find(media => media.phoneCover) ?? gallery?.find(media => media.portrait);
 
-        <div className="project-art">
-          <span className="project-category">{project.category}</span>
-          <Image className="cover-art" src={project.image} alt="" width={960} height={540} />
-          <span className="open-project"><ArrowUpRight size={21} aria-hidden="true" /></span>
-        </div>
+          return (
+            <button
+              className={`project-card ${project.id}`}
+              key={project.id}
+              onClick={event => { projectTrigger.current = event.currentTarget; setSelected(project); }}
+              aria-label={`Buka detail ${project.name}`}
+            >
+              <div className="project-art">
+                <span className="project-category">{project.category}</span>
+                {phone ? (
+                  <div className="screen-composition">
+                    <div className="desktop-screen">
+                      <div className="screen-bar" aria-hidden="true"><i /><i /><i /></div>
+                      <Image src={project.image} alt="" width={960} height={540} />
+                    </div>
+                    <div className="mobile-screen">
+                      <Image src={phone.src} alt="" width={180} height={390} />
+                    </div>
+                  </div>
+                ) : (
+                  <Image className="cover-art" src={project.image} alt="" width={960} height={540} />
+                )}
+                <span className="open-project"><ArrowUpRight size={21} aria-hidden="true" /></span>
+              </div>
 
-        <div className="project-info"><div><h3>{project.name}</h3><span className="project-subtitle">{project.subtitle}</span></div><span className="project-index">{String(projects.indexOf(project) + 1).padStart(2, '0')}</span></div>
-
-      </button>)}</div>
+              <div className="project-info">
+                <div><h3>{project.name}</h3><span className="project-subtitle">{project.subtitle}</span></div>
+                <span className="project-index">{String(projects.indexOf(project) + 1).padStart(2, '0')}</span>
+              </div>
+            </button>
+          );
+        })}
+      </div>
 
       <p className="work-footnote">A little context goes a long way. Tap an attachment to see the story.</p>
 
